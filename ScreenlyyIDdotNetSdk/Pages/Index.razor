@@ -1,0 +1,1230 @@
+﻿@page "/"
+@inject IJSRuntime JsRuntime
+
+@using ScreenlyyIDdotNetSdk.Models
+@using IntlTelInputBlazor
+@using MatBlazor
+@using ScreenlyyIDdotNetSdk.Constant
+
+@if (IsStartPage)
+{
+<CascadingValue Value="this">
+        <MatThemeProvider Theme="@Theme">
+            <MatAppBarContainer>
+                <MatAppBar Fixed="true" Class="mdc-theme--secondary-bg mdc-theme--on-secondary">
+                    <MatAppBarRow>
+                        <MatAppBarSection>
+                            @* <MatIconButton OnClick="@GoBackHistory" Icon="keyboard_arrow_left"></MatIconButton> *@
+                            <MatAppBarTitle><img class="logo-screenlyyid" alt="screenlyyid" src="assets/logo-white.svg" /></MatAppBarTitle>
+                        </MatAppBarSection>
+                    </MatAppBarRow>
+                </MatAppBar>
+            </MatAppBarContainer>
+        </MatThemeProvider>
+    </CascadingValue>
+}
+
+
+<div class="container" id="main-container">
+@if (_captureStep.HasValue)
+{
+    @if (IsStartPage)
+    {
+
+        <div class="row container-center" id="capture-id">
+            <div class="col-12 col-xs-12 mx-auto">
+                <div class="row">
+                    <div class="col-12">
+                        @* <img class="logo-screenlyyid" alt="screenlyyid" src="assets/logoscreenlyyid.png" /> *@
+                    </div>
+                </div>
+                <div class="vstack gap-3">
+                    <div class="row">
+                        <div class="col-12 header-text">
+                            <h3 class="form-start-title">Let's get you verified!</h3>
+                            <p>We will guide you through the digital identification process:</p>
+                        </div>
+
+                    </div>
+                    @if (IsIDVSelected)
+                    {
+                        AppInsights.TrackEvent("Page View - Get Started IDV");
+                        
+                        <hr class="solid">
+                        <div class="steps-container">
+
+                            <div class="d-flex flex-column" style="padding: 0 1.625rem;">
+                                <div class="d-flex align-items-center fade-in-text-step1">
+                                    <div class="selected-step">
+                                        <span>1</span>
+                                        <i class="tick-icon" data-eva="checkmark-outline"></i>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="step">Step 1</div>
+                                        <div class="step-name">Upload your ID</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column fade-in-text-step2">
+                                    <div class="divider">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="selected-step">
+                                            <span>2</span>
+                                            <i class="tick-icon" data-eva="checkmark-outline"></i>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="step">Step 2</div>
+                                            <div class="step-name">Take a selfie to verify its you</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column fade-in-text-step3">
+                                    <div class="divider">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="selected-step">
+                                            <span>3</span>
+                                            <i class="tick-icon" data-eva="checkmark-outline"></i>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="step">Step 3</div>
+                                            <div class="step-name">Confirm your details are correct</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="d-flex flex-column fade-in-text-step4">
+                                    <div class="divider">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="selected-step">
+                                            <span>4</span>
+                                            <i class="tick-icon" data-eva="checkmark-outline"></i>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="step">Step 4</div>
+                                            <div class="step-name">Process Complete!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 start-button-fade">
+                                <MatThemeProvider Theme="@Theme">
+                                    <MatButton Raised="true" @onclick="@GetStarted" Class="">Lets Get Started!</MatButton>
+                                </MatThemeProvider>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        AppInsights.TrackEvent("Page View - Get Started AML");
+
+                        <hr class="solid">
+                                                <div class="steps-container">
+                                                  <div class="d-flex flex-column" style="padding: 0 1.625rem;">
+                                                                                <div class="d-flex align-items-center fade-in-text-step1">
+                                                                                    <div class="selected-step">
+                                                                                        <span>1</span>
+                                                                                        <i class="tick-icon" data-eva="checkmark-outline"></i>
+                                                                                    </div>
+                                                                                    <div class="d-flex flex-column">
+                                                                                        <div class="step">Step 1</div>
+                                                                                        <div class="step-name">Enter and submit your detais</div>
+                                                                                    </div>
+                                                                                </div>
+                                                        <div class="d-flex flex-column fade-in-text-step2">
+                                                            <div class="divider">
+                                                            </div>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="selected-step">
+                                                                    <span>2</span>
+                                                                    <i class="tick-icon" data-eva="checkmark-outline"></i>
+                                                                </div>
+                                                                <div class="d-flex flex-column">
+                                                                    <div class="step">Step 2</div>
+                                                                    <div class="step-name">Process Complete!</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 start-button-fade">
+                                                        <MatThemeProvider Theme="@Theme">
+                                                            <MatButton Raised="true" @onclick="@GetStarted" Class="">Lets Get Started!</MatButton>
+                                                        </MatThemeProvider>
+                                                    </div>
+                                                </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+            @*FRONT SIDE*@
+        @if (_captureStep is CaptureStep.Front or CaptureStep.Back)
+        {
+            AppInsights.TrackEvent($"Page View - Capture Step - {_captureStep}");
+
+            <div class="d-flex flex-row fade-in-text-step1">
+                                <div class="p-2">
+                                     <div class="circle-wrap">
+                                                        <div class="circle">
+                                                            <div class="mask full">
+                                                                <div class="fill"></div>
+                                                            </div>
+                                                            <div class="mask half">
+                                                                <div class="fill"></div>
+                                                            </div>
+                                                            <div class="inside-circle"> 1 of 4 </div>
+                                                        </div>
+                                     </div>
+                                </div>
+                <div class="d-flex p-2 align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="step">Step 1</div>
+                        <div class="step-name-header">Upload your ID</div>
+                        <div class="step-header">Next: Capture selfie</div>
+                    </div>
+                </div>
+                </div>
+                            
+                            <hr class="solid">
+                            <div class="row">
+                                <div class="col-12 col-xs-12 mx-auto">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @* <img class="img-fluid pb-3" alt="screenlyyid" src="assets/logoscreenlyyid.png" style="max-width: 200px;float: right;padding-top: 15px;padding-bottom: 25px !important;" /> *@
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @* <h6 class="form-start-title">Upload a clear picture of the front of your ID card.</h6> *@
+                                        </div>
+                                    </div>
+                                    <div class="vstack gap-3 mx-auto fade-in-text-step2">
+                                        <h6 class="text-center" id="title-text">Upload a clear picture of the front of your ID Card</h6>
+                                        <img class="img-fluid" alt="screenlyy" src="assets/scan_process.gif" style="max-width: 100%" id="front-info-image"/>
+                                        <img class="img-fluid hide" alt="screenlyy" src="assets/IDback@3x.png" id="back-info-image"/>
+                                        <div id="analyzing" class="analyzing hide">
+                                            <div class="row wrapper description_container">
+                                                <p class="description">Analyzing...</p>
+                                            </div>
+                
+                                            <div class="analyzing_group">
+                
+                                                <div id="animation-container" class="row wrapper analyzing_container">
+                
+                                                    <figure id="animation" class="analyzing_animation_zone">
+                                                        <img id="search-image" alt="screenlyyID" class="id_background" src="assets/id_front@2x.png"/>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <canvas id="result-id-img" class="hide"></canvas>
+
+                                        <MatThemeProvider Theme="@Theme">
+                                            <MatButton Raised="true" id="capture-image" class="mdc-theme--secondary-bg mdc-theme--on-secondary" @onclick="@(async Task() => { await StartCamera(); })">@CaptureImageText</MatButton>
+                                            </MatThemeProvider>
+
+                                        <MatThemeProvider Theme="@Theme">
+                                            <MatButton hidden Outlined="true" class="hide" id="use-image" @onclick="@ProcessImage">Use this Image</MatButton>
+                                        </MatThemeProvider>
+                                        
+                                     
+                                        <MatButton hidden id="retry" @onclick="@RestartProcess" Raised="true" Class="mdc-theme--secondary-bg mdc-theme--on-secondary">Retry</MatButton>
+                                        
+                                        @* <button id="use-image" class="btn btn-light hide" @onclick="@ProcessImage">Use this Image</button> *@
+                                    </div>
+                                </div>
+                
+                            </div>
+                // </div>
+           
+        }
+
+            @*SELFIE*@
+        else if (_captureStep == CaptureStep.Selfie)
+        {
+            AppInsights.TrackEvent($"Page View - Capture Selfie ");
+            <div class="d-flex flex-row fade-in-text-step1">
+                <div class="p-2">
+                    <div class="circle-wrap2">
+                        <div class="circle2">
+                            <div class="mask2 full2">
+                                <div class="fill2"></div>
+                            </div>
+                            <div class="mask2 half">
+                                <div class="fill2"></div>
+                            </div>
+                            <div class="inside-circle2"> 2 of 4 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex p-2 align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="step">Step 2</div>
+                        <div class="step-name-header">Capture selfie</div>
+                        <div class="step-header">Next: Confirm details</div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="solid">
+            
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyyid" src="assets/logoscreenlyyid.png" style="max-width: 200px; padding-top: 15px" /> *@
+                    <div class="vstack gap-3 mx-auto">
+                        <div id="selfie-title-text">Take a selfie image using the front camera of your device.</div>
+                        <img class="img-fluid" alt="ScreenlyyID Selfie" src="assets/illustration2@3x.png" id="selfie-image"/>
+
+                        <div id="analyzing" class="analyzing hide">
+                            <div class="row wrapper description_container">
+                                <p class="description">Analyzing...</p>
+                            </div>
+                            <div class="analyzing_group">
+                                <div id="animation-container" class="row wrapper analyzing_container">
+                                    <figure id="animation" class="analyzing_animation_zone">
+                                        <img id="search-image" alt="screenlyyID" class="id_background" src="assets/id_front@2x.png"/>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+
+                        <MatThemeProvider Theme="@Theme">
+                            <MatButton Raised="true" id="btn-capture-selfie" class="mdc-theme--secondary-bg mdc-theme--on-secondary" @onclick="@TakeSelfie">Capture Selfie</MatButton>
+                        </MatThemeProvider>
+                        @* <button id="btn-capture-selfie" class="btn btn-primary" @onclick="@TakeSelfie">Take Selfie Image</button> *@
+                    </div>
+                </div>
+            </div>
+        }
+
+            @*User INFO INPUT*@
+        else if (_captureStep == CaptureStep.DataInput)
+        {
+            AppInsights.TrackEvent($"Page View - Data Input");
+            <div class="d-flex flex-row fade-in-text-step1">
+                <div class="p-2">
+                    <div class="circle-wrap3">
+                        <div class="circle3">
+                            <div class="mask3 full3">
+                                <div class="fill3"></div>
+                            </div>
+                            <div class="mask3 half3">
+                                <div class="fill3"></div>
+                            </div>
+                            <div class="inside-circle3"> 3 of 4 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex p-2 align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="step">Step 3</div>
+                        <div class="step-name-header">Confirm details</div>
+                        <div class="step-header">Next: done!</div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="solid">
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyyid" src="assets/logoscreenlyyid.png" style="max-width: 200px; padding-top: 15px" /> *@
+                    <div class="vstack gap-3">
+                        <p style="padding-top: 15px">Please make sure the information extracted is correct as shown on your ID Card.</p>
+                        <EditForm EditContext="@_dataInputEditContext" OnSubmit="HandleBasicDetailSubmit">
+                            <DataAnnotationsValidator/>
+                            <p>
+                                <MatTextField Label="First Name" FullWidth="true" @bind-Value="_dataInputDataViewModel.FirstName"></MatTextField>
+                                <ValidationMessage For="@(() => _dataInputDataViewModel.FirstName)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Middle Name" FullWidth="true" @bind-Value="_dataInputDataViewModel.MiddleName"></MatTextField>
+                                <ValidationMessage For="@(() => _dataInputDataViewModel.MiddleName)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Last Name"  FullWidth="true" @bind-Value="_dataInputDataViewModel.LastName"></MatTextField>
+                                <ValidationMessage For="@(() => _dataInputDataViewModel.LastName)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Document Number"  FullWidth="true" @bind-Value="_dataInputDataViewModel.DocumentNumber"></MatTextField>
+                                <ValidationMessage For="@(() => _dataInputDataViewModel.DocumentNumber)"/>
+                            </p>
+                            <p>
+                                <MatDatePicker Label="Date of Birth"  Icon="date_range" FullWidth="true" @bind-Value="_dataInputDataViewModel.DateOfBirth"></MatDatePicker>
+                                <ValidationMessage For="@(() => _dataInputDataViewModel.DateOfBirth)"/>
+                            </p>
+                            <p>
+                                <MatDatePicker Label="Document Expiry Date" Icon="date_range" FullWidth="true" @bind-Value="_dataInputDataViewModel.DocumentExpiryDateTime"></MatDatePicker>
+                            </p>
+                            <p>
+                                <MatSelect Label="Gender"  FullWidth="true" @bind-Value="_dataInputDataViewModel.Gender">
+                                    <MatOptionString Value="Male">Male</MatOptionString>
+                                    <MatOptionString Value="Female">Female</MatOptionString>
+                                    <MatOptionString Value="Other">Other</MatOptionString>
+                                </MatSelect>
+                                <ValidationMessage For="@(() => _dataInputDataViewModel.Gender)"/>
+                            </p>
+                            <p>
+                                <MatCheckbox @bind-Value="@ExtraAgreement">I consent that the above information is correct.</MatCheckbox>
+                            </p>
+                            
+                                <MatThemeProvider Theme="@Theme">
+                                    <MatButton Type="submit" Raised="true" disabled="@(!ExtraAgreement)" Class="mdc-theme--secondary-bg mdc-theme--on-secondary">Continue</MatButton>
+                                </MatThemeProvider>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (_captureStep == CaptureStep.AdditionalInput)
+        {
+            AppInsights.TrackEvent($"Page View - Additional Data Input");
+            <div id="cover-spin" class="hide"><span class="spin-text">Please wait. Verification can take up to 30 seconds.</span></div>
+            <div class="d-flex flex-row fade-in-text-step1">
+                <div class="p-2">
+                    <div class="circle-wrap3">
+                        <div class="circle3">
+                            <div class="mask3 full3">
+                                <div class="fill3"></div>
+                            </div>
+                            <div class="mask3 half3">
+                                <div class="fill3"></div>
+                            </div>
+                            <div class="inside-circle3"> 3 of 4 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex p-2 align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="step">Step 3</div>
+                        <div class="step-name-header">Confirm details</div>
+                        <div class="step-header">Next: done!</div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="solid">
+            
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyy" src="assets/logoscreenlyyid.png" style="max-width: 200px" /> *@
+                    <div class="vstack gap-3 mx-auto">
+                        <p style="padding-top: 15px">Please make sure the information extracted is correct as shown on your ID Card.</p>
+                        <EditForm EditContext="@_additionalInformationEditContext" OnSubmit="HandleAdditionalDetailSubmit">
+                            <DataAnnotationsValidator/>
+                            <p>
+                                <MatTextField Label="Email" Icon="mail_outline" FullWidth="true" @bind-Value="_additionalDataViewModel.Email"></MatTextField>
+                                <ValidationMessage For="@(() => _additionalDataViewModel.Email)"/>
+                            </p>
+                            <p>
+                                <IntlTelInput @bind-Value="_additionalDataViewModel.IntTelNumber" class="intl-tel-input-control" id="intl-tel-input-control" FullWidth="true"> </IntlTelInput>
+                                <ValidationMessage For="@(() => _additionalDataViewModel.IntTelNumber)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Address Line 1" FullWidth="true" @bind-Value="_additionalDataViewModel.AddressLine1"></MatTextField>
+                                <ValidationMessage For="@(() => _additionalDataViewModel.AddressLine1)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Address Line 2" FullWidth="true" @bind-Value="_additionalDataViewModel.AddressLine2"></MatTextField>
+                            </p>
+                            <p>
+                                <MatTextField Label="City"  FullWidth="true" @bind-Value="_additionalDataViewModel.City"></MatTextField>
+                                <ValidationMessage For="@(() => _additionalDataViewModel.City)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="State" FullWidth="true" @bind-Value="_additionalDataViewModel.State"></MatTextField>
+                                <ValidationMessage For="@(() => _additionalDataViewModel.State)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Zip Code"  FullWidth="true" @bind-Value="_additionalDataViewModel.ZipCode"></MatTextField>
+                                <ValidationMessage For="@(() => _additionalDataViewModel.ZipCode)"/>
+                            </p>
+                             <p>
+                                 <MatSelectValue Label="Country" FullWidth="true" @bind-Value="CountryValue" Items="@CountryItems" ValueSelector="@(i => i.CountryCode)" >
+                                     <ItemTemplate Context="_context">
+                                          <span>@_context?.CountryName</span>
+                                          </ItemTemplate>
+                                 </MatSelectValue>
+                                 <ValidationMessage For="@(() => _additionalDataViewModel.Country)"/>
+                                                        </p>
+                            <p>
+                                <MatCheckbox @bind-Value="@ExtraAgreement">I consent that the above information is correct.</MatCheckbox>
+                            </p>
+                            
+                                <MatThemeProvider Theme="@Theme">
+                                    <MatButton Raised="true" Type="submit" disabled="@(!ExtraAgreement)" Class="mdc-theme--secondary-bg mdc-theme--on-secondary">Confirm</MatButton>
+                                </MatThemeProvider>
+                            
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (_captureStep == CaptureStep.Complete)
+        {
+            <div class="d-flex flex-row fade-in-text-step1">
+                <div class="p-2">
+                    <div class="circle-wrap4">
+                        <div class="circle4">
+                            <div class="mask4 full4">
+                                <div class="fill4"></div>
+                            </div>
+                            <div class="mask4 half4">
+                                <div class="fill4"></div>
+                            </div>
+                            <div class="inside-circle4"> @StepNumber of @StepTotal </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex p-2 align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="step">Step @StepNumber</div>
+                        <div class="step-name-header">Process complete!</div>
+                        <div class="step-header"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="solid">
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    <div class="vstack gap-2 mx-auto">
+                      
+                        <p>ID Scan Results</p>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                                            <td><img id="id-photo" src="@sdkResults.Photo" style="height: 100px"/></td>
+                                                            <td><img id="id-sig" src="@sdkResults.Signature" style="height: 50px"/></td>
+                                                        </tr>
+                                                     
+                                                        <tr>
+                                                            <td><MatBody2><strong>Name on ID:</strong></MatBody2></td>
+                                                            <td><MatBody2>@sdkResults.NameOnID</MatBody2>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><MatBody2><strong>Document Number:</strong></MatBody2></td>
+                                                            <td><MatBody2>@sdkResults.DocumentNumber</MatBody2></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><MatBody2><strong>Document Type:</strong></MatBody2></td>
+                                                            <td><MatBody2>@sdkResults.DocumentType</MatBody2></td>
+                                                        </tr>
+                                                        @* <tr> *@
+                                                        @*     <td>Document Expiry:</td> *@
+                                                        @*     <td></td> *@
+                                                        @* </tr> *@
+                                                        <tr>
+                                                            <td><MatBody2><strong>D.O.B</strong></MatBody2> </td>
+                                                            <td><MatBody2>@sdkResults.DateOfBirth</MatBody2></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><MatBody2><strong>Address</strong></MatBody2></td>
+                                                            <td><MatBody2>@sdkResults.Address</MatBody2></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><MatBody2><strong>Liveness Score</strong></MatBody2> </td>
+                                                            <td><MatBody2>@sdkResults.LivenessScore</MatBody2></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><MatBody2><strong>Facematch Score</strong></MatBody2></td>
+                                                            <td><MatBody2>@sdkResults.FacematchScore</MatBody2></td>
+                                                        </tr>
+                            </tbody>
+                        
+                        </table>
+                    
+                    </div>
+                 <MatButton id="retry" @onclick="@RestartProcess" Raised="true" Class="mdc-theme--secondary-bg mdc-theme--on-secondary" FullWidth="true">Restart</MatButton>
+                </div>
+            </div>
+        }
+
+        else if (_captureStep == CaptureStep.AMLOnly)
+        {
+
+            <div id="cover-spin" class="hide"><span class="spin-text">Please wait. Verification can take up to 30 seconds.</span></div>
+            
+            <div class="d-flex flex-row fade-in-text-step1">
+                <div class="p-2">
+                    <div class="circle-wrap2">
+                        <div class="circle2">
+                            <div class="mask2 full2">
+                                <div class="fill2"></div>
+                            </div>
+                            <div class="mask2 half">
+                                <div class="fill2"></div>
+                            </div>
+                            <div class="inside-circle2"> 1 of 2 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex p-2 align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="step">Step 2</div>
+                        <div class="step-name-header">Enter details</div>
+                        <div class="step-header">Next: Process complete</div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="solid">
+            
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyy" src="assets/logoscreenlyyid.png" style="max-width: 200px" /> *@
+                    <div class="vstack">
+                     <p style="padding-top: 15px">Complete and submit the details below.</p>
+                        <EditForm EditContext="@_amlCheckOnlyEditContext" OnValidSubmit="HandleAMLCheckOnlyValidSubmit">
+                            <DataAnnotationsValidator/>
+                            <p>
+                                <MatTextField Label="First Name" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.FirstName"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.FirstName)"/>
+                            </p>
+                              <p>
+                                  <MatTextField Label="Middle Name" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.MiddleName"></MatTextField>
+                                  <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.MiddleName)"/>
+                                  </p>
+                            <p>
+                                <MatTextField Label="Last Name" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.LastName"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.LastName)"/>
+                            </p>
+                                <p>
+                                    <MatSelect Label="Gender" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.Gender">
+                                                                <MatOptionString Value="Male">Male</MatOptionString>
+                                                                <MatOptionString Value="Female">Female</MatOptionString>
+                                                                <MatOptionString Value="Other">Other</MatOptionString>
+                                    </MatSelect>
+                                    <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.Gender)"/>
+                                                        </p>
+                            <p>
+                                <MatDatePicker Label="Date of Birth" Required="true" Icon="date_range" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.DateOfBirth"></MatDatePicker>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.DateOfBirth)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Email" Required="true" Icon="mail_outline" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.Email"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.Email)"/>
+                            </p>
+                            <p>
+                                <IntlTelInput @bind-Value="_personalAmlCheckOnlyDataViewModel.IntTelNumber" Required="true" class="intl-tel-input-control" id="intl-tel-input-control" FullWidth="true"> </IntlTelInput>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.IntTelNumber)"/>
+                            </p>
+                         
+                                <p>
+                                    <MatTextField Label="Bin Number" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.BinNumber"></MatTextField>
+                                    <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.BinNumber)"/>
+                                </p>
+                            
+                            <p>
+                                <MatTextField Label="Address Line 1" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.AddressLine1"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.AddressLine1)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Address Line 2" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.AddressLine2"></MatTextField>
+                            </p>
+                            <p>
+                                <MatTextField Label="City" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.City"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.City)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="State" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.State"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.State)"/>
+                            </p>
+                            <p>
+                                <MatTextField Label="Zip Code" Required="true" FullWidth="true" @bind-Value="_personalAmlCheckOnlyDataViewModel.ZipCode"></MatTextField>
+                                <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.ZipCode)"/>
+                            </p>
+                               <p>
+                                   <MatSelectValue Label="Country" Required="true" FullWidth="true" @bind-Value="CountryValue" Items="@CountryItems" ValueSelector="@(i=>i.CountryCode)" >
+                                       <ItemTemplate Context="_context">
+                                           <span>@_context?.CountryName</span>
+                                       </ItemTemplate>
+                                       </MatSelectValue>
+                                   <ValidationMessage For="@(() => _personalAmlCheckOnlyDataViewModel.Country)"/>
+                                                                                    </p>
+                            <p>
+                                <MatCheckbox @bind-Value="@ExtraAgreement" @oninput="CheckChanged">I consent that the above information is correct.</MatCheckbox>
+                            </p>
+                            <p>
+                                <MatThemeProvider Theme="@Theme">
+                                    <MatButton Id="btn-submit-non-idv" Type="submit" disabled="@(!ExtraAgreement)" Raised="true">Continue</MatButton>
+                                </MatThemeProvider>
+                            </p>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (_captureStep == CaptureStep.Error)
+        {
+
+            <div class="row" id="capture-id">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyy" src="assets/logoscreenlyyid.png" style="max-width: 200px" /> *@
+                    <div>
+                        <p>@ErrorMessage</p>
+                    </div>
+                    <div>
+                        <p>Please retry.</p>
+                    </div>
+                    <div>
+                        <MatButton OnClick="@RestartProcess" Raised="true" Class="mdc-theme--secondary-bg mdc-theme--on-secondary">Retry</MatButton>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        else if (_captureStep == CaptureStep.InvalidUrl)
+        {
+
+            <div class="row" id="capture-id">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyy" src="assets/logoscreenlyyid.png" style="max-width: 200px" /> *@
+                    <div>
+                        <p><strong>Incorrect URL.</strong> </p>
+                        <p>The URL provided does not correspond to any verification.</p>
+                    </div>
+                    <div>
+                        <p>Please check the URL and try again.</p>
+
+                        <p>You can close this window or go back.</p>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        else if (_captureStep == CaptureStep.UrlUsed)
+        {
+
+            <div class="row" id="capture-id">
+                <div class="col-12 mx-auto">
+                    @* <img class="img-fluid pb-3" alt="screenlyy" src="assets/logoscreenlyyid.png" style="max-width: 200px" /> *@
+                    <div>
+                        <p><strong>Inalid URL.</strong> </p>
+                        <p>An ID Verification has already been completed using this URL. <br/><br/> If you have been asked to complete an ID Check and have not yet done so, please inform the
+                            administrator that supplied you with this URL/QR Code. <br/><br/> Alternatively contact us at <strong>support@screenlyyid.com</strong></p>
+                    </div>
+                    <div>
+                        <p>You can close this window.</p>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <div class="row hide vstack" id="failed-id-cropping">
+                        <div class="col-12 mx-auto vstack gap-2">
+                            @* <img class="img-fluid pb-3" alt="screenlyy" src="assets/logoscreenlyyid.png" style="max-width: 200px" /> *@
+                            <div>
+                                <p>A visible ID could note be extracted from the image. <br></p>
+                                <p>Please ensure the ID in the photo:<br><br>
+                                    <ul>
+                                        <li>Is flat on a surface and not taken at an angle.</li>
+                                        <li>All four corners of the ID are visible.</li>
+                                        <li>The photo has no glare or shadows.</li>
+                                        <li>Is taken against a plain background</li>
+                                        <li>Is in colour, clear and in focus.</li>
+                                        <li>Contains no other objects or people</li>
+                                    </ul>
+                                
+                                </p>
+                                <p>For example:</p>
+                                <img class="img-fluid" src="assets/ExampleID.png"/>
+                            </div>
+                            <div></div>
+                           
+                                <MatButton OnClick="@RestartProcess" Raised="true" Class="mdc-theme--secondary-bg mdc-theme--on-secondary">Retry</MatButton>
+                            
+                        </div>
+                    </div>
+    }
+}
+</div>
+
+@code
+{
+    bool ExtraAgreement { get; set; } = true;
+    string StepNumber { get; set; }
+    string StepTotal { get; set; }
+
+    PersonalDataViewModel _personalAmlCheckOnlyDataViewModel = new PersonalDataViewModel();
+
+    PersonalDataViewDataAdditionalStepModel _additionalDataViewModel = new PersonalDataViewDataAdditionalStepModel()
+        {
+            City = DocumentDataViewModel?.City,
+            State = DocumentDataViewModel?.State,
+            ZipCode = DocumentDataViewModel?.ZipCode,
+        };
+
+    PersonalDataViewDataInputStepModel _dataInputDataViewModel = new PersonalDataViewDataInputStepModel()
+        {
+            FirstName = DocumentDataViewModel?.FirstName,
+            LastName = DocumentDataViewModel?.LastName,
+            DateOfBirth = DocumentDataViewModel?.DateOfBirth ?? DateTime.UtcNow.AddYears(-20),
+            DocumentExpiryDateTime = DocumentDataViewModel?.DocumentExpiryDateTime,
+            DocumentNumber = DocumentDataViewModel?.DocumentNumber,
+        };
+
+    EditContext _amlCheckOnlyEditContext;
+
+    EditContext _additionalInformationEditContext;
+
+    EditContext _dataInputEditContext;
+    //
+    // bool amlDisabled { get; set; } = false;
+    // string spinnerClass { get; set; } = string.Empty;
+    
+    private async void HandleAMLCheckOnlyValidSubmit()
+    {
+        StepTotal = "2";
+        StepNumber = "2";
+        
+        if (!_amlCheckOnlyEditContext.Validate())
+            return;
+        
+        await ShowCoverSpinner();
+        
+        
+        try
+        {
+            DocumentDataViewModel = new PersonalDataViewModel()
+            {
+                FirstName = _personalAmlCheckOnlyDataViewModel.FirstName,
+                MiddleName = _personalAmlCheckOnlyDataViewModel.MiddleName,
+                LastName = _personalAmlCheckOnlyDataViewModel.LastName,
+                //DocumentNumber = _dataInputDataViewModel.DocumentNumber,
+                DateOfBirth = _personalAmlCheckOnlyDataViewModel.DateOfBirth,
+                DocumentExpiryDateTime = DateTime.MinValue,
+                Gender = _personalAmlCheckOnlyDataViewModel.Gender,
+                Email = _personalAmlCheckOnlyDataViewModel.Email,
+                PhoneNumber = _personalAmlCheckOnlyDataViewModel.IntTelNumber.Number,
+                CountryCodePhone = _personalAmlCheckOnlyDataViewModel.IntTelNumber.CountryData.Iso2,
+                BinNumber = _personalAmlCheckOnlyDataViewModel.BinNumber,
+                AddressLine1 = _personalAmlCheckOnlyDataViewModel.AddressLine1,
+                AddressLine2 = _personalAmlCheckOnlyDataViewModel.AddressLine2,
+                City = _personalAmlCheckOnlyDataViewModel.City,
+                State = _personalAmlCheckOnlyDataViewModel.State,
+                ZipCode = _personalAmlCheckOnlyDataViewModel.ZipCode,
+                Country = CountryValue //_additionalDataViewModel.CountryCode
+                    
+            };
+            
+            await CompleteNonIDVCheck(DocumentDataViewModel);
+        }
+        catch (Exception e)
+        {
+            _captureStep = CaptureStep.Complete;
+            ErrorMessage = $"An Exception occured while processing customer intelligence checks. The error is : " + e.Message;
+            await LogErrorAsync(ErrorMessage + " Stack Trace: " + e);
+            StateHasChanged();
+        }
+    }
+
+
+    public async Task HandleBasicDetailSubmit()
+    {
+        await AppInsights.TrackEvent($"Button Click - Basic Details Form Submit");
+        // if (!_dataInputEditContext.Validate())
+        //     return;
+
+        _captureStep = CaptureStep.AdditionalInput;
+
+        await Task.CompletedTask;
+    }
+
+
+    public async Task HandleAdditionalDetailSubmit()
+    {
+        // if (!_additionalInformationEditContext.Validate())
+        //     return;
+        
+      
+        
+        StepNumber = "4";
+        StepTotal = "4";
+
+    
+            //EMV is really slow, show spinned, until we move it to a queue like kafka.
+        await ShowCoverSpinner();
+        
+
+        try
+        {
+            if (_additionalDataViewModel != null)
+                if (_dataInputDataViewModel != null)
+                    DocumentDataViewModel = new PersonalDataViewModel()
+                    {
+                        FirstName = string.IsNullOrEmpty(_dataInputDataViewModel.FirstName) ? string.Empty : _dataInputDataViewModel.FirstName,
+                        LastName = string.IsNullOrEmpty(_dataInputDataViewModel.LastName) ? string.Empty : _dataInputDataViewModel.LastName,
+                        DocumentNumber = string.IsNullOrEmpty(_dataInputDataViewModel.DocumentNumber) ? string.Empty : _dataInputDataViewModel.DocumentNumber,
+                        DateOfBirth = _dataInputDataViewModel.DateOfBirth == null ? DateTime.MinValue:  _dataInputDataViewModel.DateOfBirth,
+                        DocumentExpiryDateTime = _dataInputDataViewModel.DocumentExpiryDateTime == null ? DateTime.MinValue  :  _dataInputDataViewModel.DocumentExpiryDateTime,
+                        Gender = string.IsNullOrEmpty(_dataInputDataViewModel.Gender) ? string.Empty : _dataInputDataViewModel.Gender,
+                        Email = string.IsNullOrEmpty(_additionalDataViewModel.Email) ? string.Empty : _additionalDataViewModel.Email,
+                        PhoneNumber = _additionalDataViewModel.IntTelNumber == null ? string.Empty : _additionalDataViewModel.IntTelNumber.Number,
+                        CountryCodePhone = _additionalDataViewModel.IntTelNumber == null ? string.Empty : _additionalDataViewModel.IntTelNumber.CountryData.Iso2,
+                        AddressLine1 = string.IsNullOrEmpty(_additionalDataViewModel.AddressLine1) ? string.Empty : _additionalDataViewModel.AddressLine1,
+                        AddressLine2 = string.IsNullOrEmpty( _additionalDataViewModel.AddressLine2) ? string.Empty : _additionalDataViewModel.AddressLine2,
+                        City = string.IsNullOrEmpty(_additionalDataViewModel.City) ? string.Empty : _additionalDataViewModel.City,
+                        State = string.IsNullOrEmpty(_additionalDataViewModel.City) ? string.Empty : _additionalDataViewModel.State,
+                        ZipCode = string.IsNullOrEmpty(_additionalDataViewModel.City) ? string.Empty : _additionalDataViewModel.ZipCode,
+                        Country = string.IsNullOrEmpty(CountryValue) ? string.Empty : CountryValue //_additionalDataViewModel.CountryCode
+                    };
+
+            var tasks = new List<Task>
+            {
+                AdditionalDataService.SaveAdditionalData(DocumentDataViewModel, instanceId, correlationId),
+
+            
+            // Uncomment these or add them into a configurable workflow if you want to run 
+            // additional checks.
+            // Note if you run these checks you will be invoiced for them.
+                // CallAMLCheckAsync(),
+                //
+                // CallEmailVerificationAsync(),
+                //
+                // CallAddressCleanseAsync(),
+                //
+                // CallPhoneVerificationAsync(),
+                //
+                // CallIPDeviceVerificationAsync(),
+                //
+                // CallEIDV1VerificationAsync(),
+                //
+                // CallEIDV2VerificationAsync(),
+                //
+                // CallBinLookupAsync(),
+            };
+
+            await Task.WhenAll(tasks);
+
+            await HideCoverSpinner();
+            _captureStep = CaptureStep.Complete;
+        }
+        catch (Exception e)
+        {
+            _captureStep = CaptureStep.Complete;
+            ErrorMessage = $"An Exception occured while processing customer intelligence checks. The error is : " + e.Message;
+            await LogErrorAsync(ErrorMessage + " Stack Trace: " + e);
+            StateHasChanged();
+        }
+
+        
+    }
+
+    public MatTheme Theme = new MatTheme { Primary = "#2A7F84" };
+
+    protected override async void OnParametersSet()
+    {
+        await Task.CompletedTask;
+    }
+
+    private void CheckChanged(ChangeEventArgs e)
+    {
+
+    }
+
+  
+    
+    public void GoBackHistory()
+    {
+        JsRuntime.InvokeVoidAsync("history.go", -1);
+    }
+
+    private void GetStarted()
+    {
+        AppInsights.TrackEvent("Button Click - Get Started");
+        
+        IsStartPage = false;
+        ThreadPool.QueueUserWorkItem(
+            delegate
+            {
+                var documentInstance = CreateDocumentInstance();
+            }, null);
+    }
+
+    string CountryValue = "";
+    
+    ItemType[] CountryItems = new[]
+    {
+        new ItemType("Please Select",""),
+        new ItemType("Afghanistan","AF"),
+        new ItemType("Aland Islands","AX"),
+        new ItemType("Albania","AL"),
+        new ItemType("Algeria","DZ"),
+        new ItemType("American Samoa","AS"),
+        new ItemType("Andorra","AD"),
+        new ItemType("Angola","AO"),
+                  new ItemType("Anguilla","AI"),
+                  new ItemType("Antarctica","AQ"),
+                  new ItemType("Antigua and Barbuda","AG"),
+                  new ItemType("Argentina","AR"),
+                  new ItemType("Armenia","AM"),
+                  new ItemType("Aruba","AW"),
+                  new ItemType("Australia","AU"),
+                  new ItemType("Austria","AT"),
+                  new ItemType("Azerbaijan","AZ"),
+                  new ItemType("Bahamas","BS"),
+                  new ItemType("Bahrain","BH"),
+                  new ItemType("Bangladesh","BD"),
+                  new ItemType("Barbados","BB"),
+                  new ItemType("Belarus","BY"),
+                  new ItemType("Belgium","BE"),
+                  new ItemType("Belize","BZ"),
+                  new ItemType("Benin","BJ"),
+                  new ItemType("Bermuda","BM"),
+                  new ItemType("Bhutan","BT"),
+                  new ItemType("Bolivia","BO"),
+                  new ItemType("Bonaire, Sint Eustatius and Saba","BQ"),
+                  new ItemType("Bosnia and Herzegovina","BA"),
+                  new ItemType("Botswana","BW"),
+                  new ItemType("Bouvet Island","BV"),
+                  new ItemType("Brazil","BR"),
+                  new ItemType("British Indian Ocean Territory", "IO"),
+                  new ItemType("Brunei Darussalam","BN"),
+                  new ItemType("Bulgaria","BG"),
+                  new ItemType("Burkina Faso", "BF"),
+                  new ItemType("Burundi","BI"),
+                  new ItemType("Cambodia","KH"),
+                  new ItemType("Cameroon", "CM"),
+                  new ItemType("Canada","CA"),
+                  new ItemType("Cape Verde","CV"),
+                  new ItemType("Cayman Islands","KY"),
+                  new ItemType("Central African Republic", "CF"),
+                  new ItemType("Chad", "TD"),
+                  new ItemType("Chile", "CL"),
+                  new ItemType("China","CN"),
+                  new ItemType("Christmas Island", "CX"),
+                  new ItemType("Cocos (Keeling) Islands","CC"),
+                  new ItemType("Colombia", "CO"),
+                  new ItemType("Comoros", "KM"),
+                  new ItemType("Congo", "CG"),
+                  new ItemType("Congo, Democratic Republic of the Congo","CD"),
+                  new ItemType("Cook Islands", "CK"),
+                  new ItemType("Costa Rica","CR"),
+                  new ItemType("Cote D'Ivoire","CI"),
+                  new ItemType("Croatia","HR"),
+                  new ItemType("Cuba","CU"),
+                  new ItemType("Curacao","CW"),
+                  new ItemType("Cyprus","CY"),
+                  new ItemType("Czech Republic","CZ"),
+                  new ItemType("Denmark","DK"),
+                  new ItemType("Djibouti", "DJ"),
+                  new ItemType("Dominica", "DM"),
+                  new ItemType("Dominican Republic","DO"),
+                  new ItemType("Ecuador","EC"),
+                  new ItemType("Egypt","EG"),
+                  new ItemType("El Salvador", "SV"),
+                  new ItemType("Equatorial Guinea", "GQ"),
+                  new ItemType("Eritrea","ER"),
+                  new ItemType("Estonia", "EE"),
+                  new ItemType("Ethiopia", "ET"),
+                  new ItemType("Falkland Islands (Malvinas)", "FK"),
+                  new ItemType("Faroe Islands", "FO"),
+                  new ItemType("Fiji","FJ"),
+                  new ItemType("Finland","FI"),
+                  new ItemType("France","FR"),
+                  new ItemType("French Guiana","GF"),
+                  new ItemType("French Polynesia","PF"),
+                  new ItemType("French Southern Territories","TF"),
+                  new ItemType("Gabon","GA"),
+                  new ItemType("Gambia","GM"),
+                  new ItemType("Georgia", "GE"),
+                  new ItemType("Germany","DE"),
+                  new ItemType("Ghana","GH"),
+                  new ItemType("Gibraltar","GI"),
+                  new ItemType("Greece","GR"),
+                  new ItemType("Greenland","GL"),
+                  new ItemType("Grenada","GD"),
+                  new ItemType("Guadeloupe","GP"),
+                  new ItemType("Guam","GU"),
+                  new ItemType("Guatemala","GT"),
+                  new ItemType("Guernsey","GG"),
+                  new ItemType("Guinea","GN"),
+                  new ItemType("Guinea-Bissau","GW"),
+                  new ItemType("Guyana","GY"),
+                  new ItemType("Haiti","HT"),
+                  new ItemType("Heard Island and Mcdonald Islands", "HM"),
+                  new ItemType("Holy See (Vatican City State)","VA"),
+                  new ItemType("Honduras","HN"),
+                  new ItemType("ong Kong","HK"),
+                  new ItemType("Hungary","HU"),
+                  new ItemType("Iceland","IS"),
+                  new ItemType("India","IN"),
+                  new ItemType("Indonesia","ID"),
+                  new ItemType("Iran, Islamic Republic of","IR"),
+                  new ItemType("Iraq","IQ"),
+                  new ItemType("Ireland","IE"),
+                  new ItemType("Isle of Man","IM"),
+                  new ItemType("Israel","IL"),
+                  new ItemType("Italy","IT"),
+                  new ItemType("Jamaica","JM"),
+                  new ItemType("Japan","JP"),
+                  new ItemType("Jersey","JE"),
+                  new ItemType("Jordan","JO"),
+                  new ItemType("Kazakhstan","KZ"),
+                  new ItemType("Kenya","KE"),
+                  new ItemType("Kiribati","KI"),
+                  new ItemType("Korea, Democratic People's Republic of","KP"),
+                  new ItemType("Korea, Republic of","KR"),
+                  new ItemType("Kosovo","XK"),
+                  new ItemType("Kuwait","KW"),
+                  new ItemType("Kyrgyzstan","KG"),
+                  new ItemType("Lao People's Democratic Republic","LA"),
+                  new ItemType("Latvia","LV"),
+                  new ItemType("Lebanon","LB"),
+                  new ItemType("Lesotho","LS"),
+                  new ItemType("Liberia","LR"),
+                  new ItemType("Libyan Arab Jamahiriya","LY"),
+                  new ItemType("Liechtenstein","LI"),
+                  new ItemType("Lithuania","LT"),
+                  new ItemType("Luxembourg","LU"),
+                  new ItemType("Macao","MO"),
+                  new ItemType("Macedonia, the Former Yugoslav Republic of","MK"),
+                  new ItemType("Madagascar","MG"),
+                  new ItemType("Malawi","MW"),
+                  new ItemType("Malaysia","MY"),
+                  new ItemType("Maldives","MV"),
+                  new ItemType("Mali","ML"),
+                  new ItemType("Malta","MT"),
+                  new ItemType("Marshall Islands","MH"),
+                  new ItemType("Martinique","MQ"),
+                  new ItemType("Mauritania","MR"),
+                  new ItemType("Mauritius","MU"),
+                  new ItemType("Mayotte","YT"),
+                  new ItemType("Mexico","MX"),
+                  new ItemType("Micronesia, Federated States of","FM"),
+                  new ItemType("Moldova, Republic of", "MD"),
+                  new ItemType("Monaco", "MC"),
+                  new ItemType("Mongolia","MN"),
+                  new ItemType("Montenegro","ME"),
+                  new ItemType("Montserrat","MS"),
+                  new ItemType("Morocco","MA"),
+                  new ItemType("Mozambique","MZ"),
+                  new ItemType("Myanmar","MM"),
+                  new ItemType("Namibia","NA"),
+                  new ItemType("Nauru","NR"),
+                  new ItemType("Nepal","NP"),
+                  new ItemType("Netherlands","NL"),
+                  new ItemType("Netherlands Antilles","AN"),
+                  new ItemType("New Caledonia","NC"),
+                  new ItemType("New Zealand","NZ"),
+                  new ItemType("Nicaragua","NI"),
+                  new ItemType("Niger","NE"),
+                  new ItemType("Nigeria","NG"),
+                  new ItemType("Niue","NU"),
+                  new ItemType("Norfolk Island","NF"),
+                  new ItemType("Northern Mariana Islands","MP"),
+                  new ItemType("Norway","NO"),
+                  new ItemType("Oman","OM"),
+                  new ItemType("Pakistan","PK"),
+                  new ItemType("Palau","PW"),
+                  new ItemType("Palestinian Territory, Occupied","PS"),
+                  new ItemType("Panama","PA"),
+                  new ItemType("Papua New Guinea","PG"),
+                  new ItemType("Paraguay","PY"),
+                  new ItemType("Peru","PE"),
+                  new ItemType("Philippines","PH"),
+                  new ItemType("Pitcairn","PN"),
+                  new ItemType("Poland","PL"),
+                  new ItemType("Portugal","PT"),
+                  new ItemType("Puerto Rico","PR"),
+                  new ItemType("Qatar","QA"),
+                  new ItemType("Reunion","RE"),
+                  new ItemType("Romania","RO"),
+                  new ItemType("Russian Federation","RU"),
+                  new ItemType("Rwanda","RW"),
+                  new ItemType("Saint Barthelemy","BL"),
+                  new ItemType("Saint Helena","SH"),
+                  new ItemType("Saint Kitts and Nevis","KN"),
+                  new ItemType("Saint Lucia","LC"),
+                  new ItemType("Saint Martin","MF"),
+                  new ItemType("Saint Pierre and Miquelon","PM"),
+                  new ItemType("Saint Vincent and the Grenadines","VC"),
+                  new ItemType("Samoa","WS"),
+                  new ItemType("San Marino","SM"),
+                  new ItemType("Sao Tome and Principe","ST"),
+                  new ItemType("Saudi Arabia","SA"),
+                  new ItemType("Senegal","SN"),
+                  new ItemType("Serbia","RS"),
+                  new ItemType("Serbia and Montenegro","CS"),
+                  new ItemType("Seychelles","SC"),
+                  new ItemType("Sierra Leone","SL"),
+                  new ItemType("Singapore","SG"),
+                  new ItemType("Sint Maarten","SX"),
+                  new ItemType("Slovakia","SK"),
+                  new ItemType("Slovenia","SI"),
+                  new ItemType("Solomon Islands","SB"),
+                  new ItemType("Somalia","SO"),
+                  new ItemType("South Africa","ZA"),
+                  new ItemType("South Georgia and the South Sandwich Islands","GS"),
+                  new ItemType("South Sudan", "SS"),
+                  new ItemType("Spain","ES"),
+                  new ItemType("Sri Lanka","LK"),
+                  new ItemType("Sudan","SD"),
+                  new ItemType("Suriname","SR"),
+                  new ItemType("Svalbard and Jan Mayen","SJ"),
+                  new ItemType("Swaziland","SZ"),
+                  new ItemType("Sweden","SE"),
+                  new ItemType("Switzerland","CH"),
+                  new ItemType("Syrian Arab Republic","SY"),
+                  new ItemType("Taiwan, Province of China","TW"),
+                  new ItemType("Tajikistan","TJ"),
+                  new ItemType("Tanzania, United Republic of","TZ"),
+                  new ItemType("Thailand","TH"),
+                  new ItemType("Timor-Leste","TL"),
+                  new ItemType("Togo","TG"),
+                  new ItemType("Tokelau","TK"),
+                  new ItemType("Tonga","TO"),
+                  new ItemType("Trinidad and Tobago","TT"),
+                  new ItemType("Tunisia","TN"),
+                  new ItemType("Turkey","TR"),
+                  new ItemType("Turkmenistan","TM"),
+                  new ItemType("Turks and Caicos Islands","TC"),
+                  new ItemType("Tuvalu","TV"),
+                  new ItemType("Uganda","UG"),
+                  new ItemType("Ukraine","UA"),
+                  new ItemType("United Arab Emirates","AE"),
+                  new ItemType("United Kingdom","GB"),
+                  new ItemType("United States","US"),
+                  new ItemType("United States Minor Outlying Islands","UM"),
+                  new ItemType("Uruguay","UY"),
+                  new ItemType("Uzbekistan","UZ"),
+                  new ItemType("Vanuatu","VU"),
+                  new ItemType("Venezuela","VE"),
+                  new ItemType("Viet Nam","VN"),
+                  new ItemType("Virgin Islands, British","VG"),
+                  new ItemType("Virgin Islands, U.s.","VI"),
+                  new ItemType("Wallis and Futuna", "WF"),
+                  new ItemType("Western Sahara","EH"),
+                  new ItemType("Yemen","YE"),
+                  new ItemType("Zambia","ZM"),
+                  new ItemType("Zimbabwe","ZW"),
+        
+    };
+ 
+    class ItemType
+    {
+        public string CountryName { get; }
+        public string CountryCode { get; }
+ 
+        public ItemType(string countryName, string countryCode)
+        {
+            CountryName = countryName;
+            CountryCode = countryCode;
+        }
+    }
+
+    
+}

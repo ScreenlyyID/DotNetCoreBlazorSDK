@@ -1,0 +1,268 @@
+.circle-wrap {
+    margin-left: 10px;
+    margin-top: 30px;
+    /*margin: 150px auto;*/
+    width: 100px;
+    height: 100px;
+    background: #CCCCCC;
+    border-radius: 50%;
+    border: 1px solid #cdcbd0;
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-wrap .circle .mask {
+    clip: rect(0px, 100px, 100px, 50px);
+}
+
+.circle-wrap .inside-circle {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #ffffff;
+    line-height: 90px;
+    text-align: center;
+    margin-top: 7.5px;
+    margin-left: 7.5px;
+    color: #2A7F84;
+    position: absolute;
+    z-index: 100;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+/* color animation */
+
+/* 3rd progress bar */
+.mask .fill {
+    clip: rect(0px, 50px, 100px, 0px);
+    background-color: #2A7F84;
+}
+
+.mask.full,
+.circle .fill {
+    animation: fill ease-in-out 3s;
+    transform: rotate(45deg);
+}
+@keyframes fill{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+
+
+
+
+
+/* STEP 2*/
+.circle-wrap2 {
+    margin-left: 10px;
+    margin-top: 30px;
+    /*margin: 150px auto;*/
+    width: 100px;
+    height: 100px;
+    background: #CCCCCC;
+    border-radius: 50%;
+    border: 1px solid #cdcbd0;
+}
+
+.circle-wrap2 .circle2 .mask2,
+.circle-wrap2 .circle2 .fill2 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-wrap2 .circle2 .mask2 {
+    clip: rect(0px, 100px, 100px, 50px);
+}
+
+.circle-wrap2 .inside-circle2 {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #ffffff;
+    line-height: 90px;
+    text-align: center;
+    margin-top: 7.5px;
+    margin-left: 7.5px;
+    color: #2A7F84;
+    position: absolute;
+    z-index: 100;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.mask2 .fill2 {
+    clip: rect(0px, 50px, 100px, 0px);
+    background-color: #2A7F84;
+}
+
+.mask2.full2,
+.circle2 .fill2 {
+    animation: fill-2 ease-in-out 3s; !important;
+    transform: rotate(90deg); !important;
+}
+
+
+
+
+@keyframes fill-2{
+    0% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+
+/* STEP 3*/
+.circle-wrap3 {
+    margin-left: 10px;
+    margin-top: 30px;
+    /*margin: 150px auto;*/
+    width: 100px;
+    height: 100px;
+    background: #CCCCCC;
+    border-radius: 50%;
+    border: 1px solid #cdcbd0;
+}
+
+.circle-wrap3 .circle3 .mask3,
+.circle-wrap3 .circle3 .fill3 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-wrap3 .circle3 .mask3 {
+    clip: rect(0px, 100px, 100px, 50px);
+}
+
+.circle-wrap3 .inside-circle3 {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #ffffff;
+    line-height: 90px;
+    text-align: center;
+    margin-top: 7.5px;
+    margin-left: 7.5px;
+    color: #2A7F84;
+    position: absolute;
+    z-index: 100;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.mask3 .fill3 {
+    clip: rect(0px, 50px, 100px, 0px);
+    background-color: #2A7F84;
+}
+
+.mask3.full3,
+.circle3 .fill3 {
+    animation: fill-3 ease-in-out 3s; !important;
+    transform: rotate(135deg); !important;
+}
+
+
+@keyframes fill-3{
+    0% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(135deg);
+    }
+}
+
+
+/* STEP 4*/
+.circle-wrap4 {
+    margin-left: 10px;
+    margin-top: 30px;
+    /*margin: 150px auto;*/
+    width: 100px;
+    height: 100px;
+    background: #CCCCCC;
+    border-radius: 50%;
+    border: 1px solid #cdcbd0;
+}
+
+.circle-wrap4 .circle4 .mask4,
+.circle-wrap4 .circle4 .fill4 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-wrap4 .circle4 .mask4 {
+    clip: rect(0px, 100px, 100px, 50px);
+}
+
+.circle-wrap4 .inside-circle4 {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #ffffff;
+    line-height: 90px;
+    text-align: center;
+    margin-top: 7.5px;
+    margin-left: 7.5px;
+    color: #2A7F84;
+    position: absolute;
+    z-index: 100;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.mask4 .fill4 {
+    clip: rect(0px, 50px, 100px, 0px);
+    background-color: #2A7F84;
+}
+
+.mask4.full4,
+.circle4 .fill4 {
+    animation: fill-4 ease-in-out 3s; !important;
+    transform: rotate(180deg); !important;
+}
+
+
+@keyframes fill-4{
+    0% {
+        transform: rotate(135deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+
+/*.mask.full-step2,*/
+/*.circle-step2 .fill-step2 {*/
+/*    animation: fill-step2 ease-in-out 3s;*/
+/*    transform: rotate(90deg);*/
+/*}*/
+
+/*@keyframes fill-step2{*/
+/*    0% {*/
+/*        transform: rotate(45deg);*/
+/*    }*/
+/*    100% {*/
+/*        transform: rotate(90deg);*/
+/*    }*/
+/*}*/
