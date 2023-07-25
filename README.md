@@ -186,39 +186,3 @@ Once document has been cropped by the Javascript SDK, it can be passed to the AP
 5. **Get Document Analysis** - this is the call that will analyse the document and return you all the data points and any issues found with the document.
 
 It is recommended you thoroughly read the [API documentation](https://admin.screenlyyid.com/docs/api) to understand these calls as well as API Authentication in detail.
-
-## Project Setup
-
-For local development setup.
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) recommended.
-
-Node 20 is recommended.
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
